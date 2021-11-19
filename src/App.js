@@ -87,7 +87,7 @@ function Content()
     {id:102,name:"Sale Item",    star:"",  price:"$25.00",        button:"Add to cart"},
     {id:103,name:"Popular Item", star:"",  price:"$40.00",        button:"Add to cart"},
     {id:104,name:"Sale Item",    star:"",  price:"$25.00",        button:"Add to cart"},
-    {id:105,name:"Fancy Product",star:"",  price:"$120.00-$280",  button:"View options"},
+    {id:105,name:"Fancy Product",star:"",  price:"$120.00-$280.00",  button:"View options"},
     {id:106,name:"Special Item", star:"", price:"$18.00",         button:"Add to cart"},
     {id:107,name:"Popular Item", star:"", price:"$40.00",         button:"Add to cart"},
   
