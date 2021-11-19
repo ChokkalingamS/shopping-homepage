@@ -43,7 +43,7 @@ body
 .content
 {
   width:14rem;
-  height: 23rem;
+  height: 24rem;
   margin:0 2rem 1.5rem 0.5rem; 
   align-items: center;
   overflow: hidden;
@@ -100,9 +100,19 @@ body
 /* Add/Remove from cart */
 .button
 {
-  width:10rem;
+  width:7.5rem;
   height:2.3rem;
-  margin-bottom:-5.8rem;
+}
+
+.button-container
+{
+ display: flex;
+ justify-content: space-evenly;
+ margin-top:3rem;
+}
+.add
+{
+  margin-top:-0.1rem;
 }
 
 /* Sale Badge */

@@ -13,7 +13,7 @@ import Badge from 'react-bootstrap/Badge'
 // From Material UI
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import GradeIcon from '@mui/icons-material/Grade';
-
+import ButtonGroup from '@mui/material/ButtonGroup';
 
 // Main Component
 export default function App() {
@@ -27,19 +27,18 @@ export default function App() {
 
 let context=createContext(0); // Context Hook creation
 
-
 function Homepage() // Homepage Contents
 {
   
   let [count,setCount]=useState(0)  // UseState Hook 
   return <context.Provider value={[count,setCount]}>
   <div>
-             <section><Header/></section>
+              <section><Header/></section>
               <section><Heading/></section>
               <section><Content/></section>
               <section><Footer/></section>
   </div>
-  </context.Provider>
+        </context.Provider>
 }
 
 // Header Navigation Bar
@@ -104,34 +103,18 @@ function Productdetails({items})
    
   
   let[count,setCount]=useContext(context)  //  Using Context Hook
-  let[num,setNum]=useState(0)
+  
+  let[num,setNum]=useState(0)  // Usestate Hook to track the cart value of individual product
 
   // Object Destructuring
    let{id,name,star,price,button}=items
 
-  // Onclick Buttonevent
-   let buttoncontent=()=>
-   {
-     if(name!=="Fancy Product")
-     {
-     return  button=(num===1)?"Remove from Cart":"Add to Cart";
-     }
-     return  button="View options";
-    }
-   let cart=()=>
-   {
-   if(name!=="Fancy Product")
-   {
-   button==="Add to Cart"?setCount(count+1):setCount(count-1);
-   setNum((num)=>num===1?0:1);
-   }
-   }
-
   //  Conditional Rendering
-   let styles;
+   
    if(name==="Sale Item")
     {
       price=<p><s>$50.00</s> $25.00</p>
+      
     }
     if(id===101||id===106)
     {
@@ -140,26 +123,67 @@ function Productdetails({items})
     }
     if(id===101||id===106||id===103||id===107)
     {
-      star=<Star/>;
-      styles={marginBottom:"-1.5rem"}
+      star=<Star/>;  
     }
 
+    // Condional button styling : Add to cart & View options
 
-   let scroll=()=>window.scrollTo(0,-1500);
+    let buttonstyles;
+    if(name==="Fancy Product"||name==="Sale Item")
+     {
+    buttonstyles={marginTop:"2rem"}
+     }
+    
+    
+// When the product is added to cart 
+  let disable;
+  if(name!=="Fancy Product")
+  {
+    disable=(num>0)?"disabled":""
+  }
+  
+    let counter=()=>
+    {
+    if(num>0)
+    {
+  return count>0?setNum(num-1):null   // Count which tracks the  cart value  of individual Product
+    }
+    }     
+  
+   let scroll=()=>{ window.scrollTo(0,-1500);}    // Onclick event to scroll to the top of the page
+
+   let Cart=()=>{setCount(count+1);setNum(num+1);}  // Add to Cart button onClick event
+     
 return <div key={id}className="content">
-        <div className="dimension"><img src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="Img"></img>
-       <Badge bg="secondary" style={{visibility:(id===101||id===102||id===104||id===106)?"visible":"hidden"}}>sale</Badge></div>
+
+        {/* Image & Sale Badge */}
+        <div className="dimension">
+        <img src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="Img"></img>
+        <Badge bg="secondary" style={{visibility:(id===101||id===102||id===104||id===106)?"visible":"hidden"}}>sale</Badge>
+        </div>
+
+        {/* Product Name & Price */}
         <div className="details">
         <h5 className="productname"><b>{name}</b></h5>
-        <p>{star}</p>
-        <p className="price">{price}</p>
+        {star}
+        <div className="price">{price}</div>
         </div>
+
+        {/* Add to Cart/View options button & +,- button  */}
         <div className="button-container">
-        <Button variant="outline-dark" style={styles} className="button" onClick={()=>{cart();scroll()}}>{buttoncontent()}</Button>
+
+        <Button variant="outline-dark" style={buttonstyles} className="button" disabled={disable} onClick={()=>{(name==="Fancy Product")?scroll():Cart()}}>{button}</Button>
         
+        <ButtonGroup  variant="light" style={{display:(id===100||id===105)?"none":"block"}}  className="add"orientation="horizontal">
+        
+        <Button variant="outline-dark" style={{marginTop:(id===102||id===104)?"2rem":"-0rem"}} onClick={()=>{setNum(num+1);setCount(count+1)}}>+</Button>
+        
+        <Button style={{marginLeft:"0.5rem",marginTop:(id===102||id===104)?"2rem":"-0rem"}}  onClick={()=>{counter(); return (count>0&&num>0)?setCount(count-1):null}} variant="outline-dark">-</Button>
+        </ButtonGroup>
         </div>
 </div>
 }
+
 
 // Footer
 function Footer() 
