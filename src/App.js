@@ -179,6 +179,7 @@ return <div key={id}className="content">
         <Button variant="outline-dark" style={{marginTop:(id===102||id===104)?"2rem":"-0rem"}} onClick={()=>{setNum(num+1);setCount(count+1)}}>+</Button>
         
         <Button style={{marginLeft:"0.5rem",marginTop:(id===102||id===104)?"2rem":"-0rem"}}  onClick={()=>{counter(); return (count>0&&num>0)?setCount(count-1):null}} variant="outline-dark">-</Button>
+        
         </ButtonGroup>
         </div>
 </div>
