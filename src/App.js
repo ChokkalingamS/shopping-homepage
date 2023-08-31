@@ -41,7 +41,7 @@ function Homepage() // Homepage Contents
         </context.Provider>
 }
 
-// Header Navigation Bar
+// Header Nav Bar
 function Header()
 {
 let[count]=useContext(context)
